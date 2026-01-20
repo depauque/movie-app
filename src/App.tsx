@@ -1,14 +1,15 @@
-import { useRef, useState } from "react";
-import data from "./data/movies.json";
-import "./styles.css";
+import { useState } from "react";
+import "./hooks/useDebounce";
 import Search from "./components/Search";
 import Movies from "./components/Movies";
 import Rating from "./components/Filters";
 import Genres from "./components/Genres";
+import data from "./data/movies.json";
+import "./styles.css";
+import useDebounce from "./hooks/useDebounce";
 
 function App() {
   const [search, setSearch] = useState("");
-  const timerRef = useRef(0);
 
   const movies =
     search.length === 0
@@ -17,13 +18,9 @@ function App() {
           m.title.toLowerCase().includes(search.toLowerCase()),
         );
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const currentValue = e.target.value;
-    clearTimeout(timerRef.current);
-    timerRef.current = setTimeout(() => {
-      setSearch(currentValue);
-    }, 800);
-  };
+  const handleSearch = useDebounce((value: string) => {
+    setSearch(value);
+  }, 800);
 
   return (
     <>
