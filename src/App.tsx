@@ -1,37 +1,47 @@
-import { useState } from "react";
-import "./hooks/useDebounce";
+import { useMemo, useState } from "react";
+import Header from "./components/Header";
+import MovieList from "./components/MovieList";
 import Search from "./components/Search";
-import Movies from "./components/Movies";
-import Rating from "./components/Filters";
+import Rating from "./components/Rating";
 import Genres from "./components/Genres";
 import data from "./data/movies.json";
 import "./styles.css";
-import useDebounce from "./hooks/useDebounce";
 
 function App() {
   const [search, setSearch] = useState("");
+  const [rating, setRating] = useState({ min: 0, max: 10 });
 
-  const movies =
+  let movies =
     search.length === 0
       ? data
       : data.filter((m) =>
           m.title.toLowerCase().includes(search.toLowerCase()),
         );
 
-  const handleSearch = useDebounce((value: string) => {
-    setSearch(value);
-  }, 800);
+  movies = movies.filter(
+    (m) => m.rating >= rating.min && m.rating <= rating.max,
+  );
+
+  const genres = useMemo(() => {
+    const allGenres = movies.flatMap((m) =>
+      m.genres.split(",").map((g) => g.trim()),
+    );
+    return [...new Set(allGenres)].sort();
+  }, [movies]);
+
+  console.log(genres);
 
   return (
     <>
+      <Header />
       <div className="container">
         <div className="sidebar">
-          <Search handleSearch={handleSearch} />
-          <Rating />
-          <Genres />
+          <Search setSearch={setSearch} />
+          <Rating rating={rating} setRating={setRating} />
+          <Genres genres={genres} />
         </div>
         <div className="main">
-          <Movies movies={movies} />
+          <MovieList movies={movies} />
         </div>
       </div>
     </>

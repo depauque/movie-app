@@ -1,18 +1,16 @@
-function Genres() {
+interface GenresProps {
+  genres: string[];
+}
+
+function Genres({ genres }: GenresProps) {
   return (
     <div className="genres">
-      <label className="checkbox-input">
-        <input type="checkbox" />
-        <p>Драма</p>
-      </label>
-      <label className="checkbox-input">
-        <input type="checkbox" />
-        <p>Криминал</p>
-      </label>
-      <label className="checkbox-input">
-        <input type="checkbox" />
-        <p>Фантастика</p>
-      </label>
+      {genres.map((g) => (
+        <label className="checkbox-input">
+          <input type="checkbox" />
+          <p>{g}</p>
+        </label>
+      ))}
     </div>
   );
 }

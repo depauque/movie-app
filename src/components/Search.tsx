@@ -1,8 +1,16 @@
+import useDebounce from "../hooks/useDebounce";
+
 interface SearchProps {
-  handleSearch: (value: string) => void;
+  setSearch: (value: string) => void;
 }
 
-function Search({ handleSearch }: SearchProps) {
+const SEARCH_DELAY = 750;
+
+function Search({ setSearch }: SearchProps) {
+  const handleSearch = useDebounce((value: string) => {
+    setSearch(value);
+  }, SEARCH_DELAY);
+
   return (
     <div className="search">
       <h3 className="h3-sidebar">Поиск</h3>
