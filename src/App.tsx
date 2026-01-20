@@ -10,6 +10,7 @@ import "./styles.css";
 function App() {
   const [search, setSearch] = useState("");
   const [rating, setRating] = useState({ min: 0, max: 10 });
+  const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
 
   let movies =
     search.length === 0
@@ -23,13 +24,20 @@ function App() {
   );
 
   const genres = useMemo(() => {
-    const allGenres = movies.flatMap((m) =>
+    const allGenres = data.flatMap((m) =>
       m.genres.split(",").map((g) => g.trim()),
     );
     return [...new Set(allGenres)].sort();
-  }, [movies]);
+  }, []);
 
-  console.log(genres);
+  movies =
+    selectedGenres.length === 0
+      ? movies
+      : movies.filter((m) => {
+          return selectedGenres.some((g) => m.genres.includes(g));
+        });
+
+  console.log(selectedGenres);
 
   return (
     <>
@@ -38,7 +46,11 @@ function App() {
         <div className="sidebar">
           <Search setSearch={setSearch} />
           <Rating rating={rating} setRating={setRating} />
-          <Genres genres={genres} />
+          <Genres
+            genres={genres}
+            selectedGenres={selectedGenres}
+            setSelectedGenres={setSelectedGenres}
+          />
         </div>
         <div className="main">
           <MovieList movies={movies} />
