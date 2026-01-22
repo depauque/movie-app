@@ -1,61 +1,45 @@
-import { useMemo, useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { FavoritesContext } from "./context/FavoritesContext";
+import { useEffect, useState } from "react";
 import Header from "./components/Header";
-import MovieList from "./components/MovieList";
-import Search from "./components/Search";
-import Rating from "./components/Rating";
-import Genres from "./components/Genres";
-import data from "./data/movies.json";
+import Footer from "./components/Footer";
+import Home from "./pages/Home";
+import Movie from "./pages/Movie";
+import Profile from "./pages/Profile";
 import "./styles.css";
 
 function App() {
-  const [search, setSearch] = useState("");
-  const [rating, setRating] = useState({ min: 0, max: 10 });
-  const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
+  const [likedMovies, setLikedMovies] = useState<number[]>(() => {
+    const saved = localStorage.getItem("favs");
+    return saved ? JSON.parse(saved) : [];
+  });
 
-  let movies =
-    search.length === 0
-      ? data
-      : data.filter((m) =>
-          m.title.toLowerCase().includes(search.toLowerCase()),
-        );
+  useEffect(() => {
+    localStorage.setItem("favs", JSON.stringify(likedMovies));
+    console.log(likedMovies);
+  }, [likedMovies]);
 
-  movies = movies.filter(
-    (m) => m.rating >= rating.min && m.rating <= rating.max,
-  );
-
-  const genres = useMemo(() => {
-    const allGenres = data.flatMap((m) =>
-      m.genres.split(",").map((g) => g.trim()),
+  const toggleLike = (id: number) => {
+    setLikedMovies((prev) =>
+      prev.includes(id) ? prev.filter((el) => el !== id) : [...prev, id],
     );
-    return [...new Set(allGenres)].sort();
-  }, []);
-
-  movies =
-    selectedGenres.length === 0
-      ? movies
-      : movies.filter((m) => {
-          return selectedGenres.some((g) => m.genres.includes(g));
-        });
-
-  console.log(selectedGenres);
+  };
 
   return (
     <>
-      <Header />
-      <div className="container">
-        <div className="sidebar">
-          <Search setSearch={setSearch} />
-          <Rating rating={rating} setRating={setRating} />
-          <Genres
-            genres={genres}
-            selectedGenres={selectedGenres}
-            setSelectedGenres={setSelectedGenres}
-          />
-        </div>
-        <div className="main">
-          <MovieList movies={movies} />
-        </div>
-      </div>
+      <FavoritesContext.Provider value={{ likedMovies, toggleLike }}>
+        <BrowserRouter>
+          <Header />
+          <div className="container">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/movie/:id" element={<Movie />} />
+              <Route path="/profile" element={<Profile />} />
+            </Routes>
+          </div>
+          <Footer />
+        </BrowserRouter>
+      </FavoritesContext.Provider>
     </>
   );
 }
