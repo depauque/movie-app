@@ -10,18 +10,14 @@ interface MovieProps {
 function MovieList({ movies }: MovieProps) {
   return (
     <div className="movies">
-      {movies.length > 0 ? (
-        movies.map((movie) => (
-          <div className="parent-container">
-            <Link key={movie.id} to={`/movie/${movie.id}`}>
-              <MovieCard movie={movie} />
-            </Link>
-            <LikeButton className="like-button--card" movieId={movie.id} />
-          </div>
-        ))
-      ) : (
-        <h2>Ничего не найдено</h2>
-      )}
+      {movies.map((movie) => (
+        <div className="parent-container">
+          <Link key={movie.id} to={`/movie/${movie.id}`}>
+            <MovieCard movie={movie} />
+          </Link>
+          <LikeButton className="like-button--card" movieId={movie.id} />
+        </div>
+      ))}
     </div>
   );
 }

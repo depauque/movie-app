@@ -7,7 +7,7 @@ function Movie() {
   const { id } = useParams<{ id: string }>();
   const movie = data.find((m) => m.id === parseInt(id!));
 
-  if (!movie) return <h2 style={{ margin: "20vh auto" }}>Фильм не найден</h2>;
+  if (!movie) return <h2 className="messages">Фильм не найден</h2>;
 
   return (
     <div className="movie-info">
@@ -19,7 +19,9 @@ function Movie() {
         <p className="movie-genres">{movie.genres}</p>
         <p>{movie.description}</p>
         <div className="movie-rating">
-          <img src="/imdb.svg" alt="IMDB rating" className="imdb-logo" />
+          <a href={`https://imdb.com/title/${movie.imdbId}/`} target="_blank">
+            <img src="/imdb.svg" alt="IMDB rating" className="imdb-logo" />
+          </a>
           <h2>{movie.rating}</h2>
           <LikeButton className="like-button--page" movieId={movie.id} />
         </div>

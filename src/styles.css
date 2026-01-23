@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+html {
+  overflow-y: scroll;
+}
+
 body {
   background-color: gray;
   color: white;
@@ -23,7 +27,7 @@ a {
 
 .container {
   width: 1200px;
-  border: 1px solid black;
+  border: 1px solid lightgray;
   margin: 0 auto;
   display: flex;
 }
@@ -42,9 +46,47 @@ a {
   margin-bottom: 5px;
 }
 
+.search input {
+  width: 100%;
+}
+
+.rating-inputs {
+  display: flex;
+  gap: 8px;
+}
+
+.text-inputs {
+  min-width: 0;
+  padding: 4px 8px;
+  background: lightgray;
+  outline: none;
+}
+
+.genres {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.active-genre {
+  color: wheat;
+}
+
+.checkbox-input {
+  display: flex;
+  gap: 10px;
+}
+
+.main {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .movies {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(200px, 1fr));
   gap: 20px;
   padding: 20px;
   justify-content: center;
@@ -55,13 +97,18 @@ a {
 }
 
 .movie-card {
-  height: 50vh;
-  padding: 10px;
-  border: 1px solid black;
+  height: 100%;
+  padding: 8px;
+  border: 1px solid rgb(144, 144, 144, 0.8);
   display: flex;
   justify-content: space-between;
   flex-direction: column;
   gap: 10px;
+}
+
+.movie-card:hover {
+  background: rgb(135, 135, 135);
+  border: 1px solid wheat;
 }
 
 .movie-card-info {
@@ -102,25 +149,8 @@ a {
   font-size: 14px;
 }
 
-.search input {
-  width: 100%;
-  padding: 4px 8px;
-}
-
-.rating-inputs {
-  display: flex;
-  gap: 8px;
-}
-
-.rating-inputs input {
-  flex: 1;
-  min-width: 0;
-  padding: 4px 8px;
-}
-
-.checkbox-input {
-  display: flex;
-  gap: 10px;
+.movie-image {
+  border: 2px solid wheat;
 }
 
 .movie-info {
@@ -143,4 +173,26 @@ a {
 
 .imdb-logo {
   width: 60px;
+}
+
+.messages {
+  margin: 20% auto;
+}
+
+.loader {
+  margin: 20% auto;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 8px dashed white;
+  animation: krutilochka 3s infinite linear;
+}
+
+@keyframes krutilochka {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

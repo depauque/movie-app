@@ -22,7 +22,9 @@ function Genres({ genres, selectedGenres, setSelectedGenres }: GenresProps) {
             type="checkbox"
             onChange={(e) => handleCheck(g, e.target.checked)}
           />
-          <p>{g}</p>
+          <p className={selectedGenres.includes(g) ? "active-genre" : ""}>
+            {g}
+          </p>
         </label>
       ))}
     </div>

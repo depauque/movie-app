@@ -3,9 +3,10 @@ import MovieList from "../components/MovieList";
 import Search from "../components/Search";
 import Rating from "../components/Rating";
 import Genres from "../components/Genres";
-import data from "../data/movies.json";
+import Loader from "../UI/Loader";
+import type { MovieInfo } from "../types";
 
-function Home() {
+function Home({ data }: { data: MovieInfo[] }) {
   const [search, setSearch] = useState("");
   const [rating, setRating] = useState({ min: 0, max: 10 });
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
@@ -26,7 +27,7 @@ function Home() {
       m.genres.split(",").map((g) => g.trim()),
     );
     return [...new Set(allGenres)].sort();
-  }, []);
+  }, [data]);
 
   movies =
     selectedGenres.length === 0
@@ -34,8 +35,6 @@ function Home() {
       : movies.filter((m) => {
           return selectedGenres.some((g) => m.genres.includes(g));
         });
-
-  console.log(selectedGenres);
 
   return (
     <>
@@ -49,7 +48,7 @@ function Home() {
         />
       </div>
       <div className="main">
-        <MovieList movies={movies} />
+        {movies.length > 0 ? <MovieList movies={movies} /> : <Loader />}
       </div>
     </>
   );

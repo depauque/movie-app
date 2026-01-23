@@ -21,12 +21,14 @@ function Rating({ rating, setRating }: RatingProps) {
           name="min"
           value={rating.min}
           onChange={handleNums}
+          className="text-inputs"
         />
         <input
           type="number"
           name="max"
           value={rating.max}
           onChange={handleNums}
+          className="text-inputs"
         />
       </div>
     </div>
