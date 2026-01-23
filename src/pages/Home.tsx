@@ -3,6 +3,7 @@ import MovieList from "../components/MovieList";
 import Search from "../components/Search";
 import Rating from "../components/Rating";
 import Genres from "../components/Genres";
+import SortButton from "../components/SortButton";
 import Loader from "../UI/Loader";
 import type { MovieInfo } from "../types";
 
@@ -10,6 +11,15 @@ function Home({ data }: { data: MovieInfo[] }) {
   const [search, setSearch] = useState("");
   const [rating, setRating] = useState({ min: 0, max: 10 });
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
+  const [sortType, setSortType] = useState<"" | "ASC" | "DSC">("");
+
+  const sortMovies = () => {
+    setSortType((prev) => {
+      if (prev === "") return "ASC";
+      if (prev === "ASC") return "DSC";
+      return "";
+    });
+  };
 
   let movies =
     search.length === 0
@@ -22,19 +32,26 @@ function Home({ data }: { data: MovieInfo[] }) {
     (m) => m.rating >= rating.min && m.rating <= rating.max,
   );
 
-  const genres = useMemo(() => {
-    const allGenres = data.flatMap((m) =>
-      m.genres.split(",").map((g) => g.trim()),
-    );
-    return [...new Set(allGenres)].sort();
-  }, [data]);
-
   movies =
     selectedGenres.length === 0
       ? movies
       : movies.filter((m) => {
           return selectedGenres.some((g) => m.genres.includes(g));
         });
+
+  movies =
+    sortType === ""
+      ? movies
+      : sortType === "ASC"
+        ? movies.sort((a, b) => a.rating - b.rating)
+        : movies.sort((a, b) => b.rating - a.rating);
+
+  const genres = useMemo(() => {
+    const allGenres = data.flatMap((m) =>
+      m.genres.split(",").map((g) => g.trim()),
+    );
+    return [...new Set(allGenres)].sort();
+  }, [data]);
 
   return (
     <>
@@ -46,6 +63,7 @@ function Home({ data }: { data: MovieInfo[] }) {
           selectedGenres={selectedGenres}
           setSelectedGenres={setSelectedGenres}
         />
+        <SortButton sortType={sortType} sortMovies={sortMovies} />
       </div>
       <div className="main">
         {movies.length > 0 ? <MovieList movies={movies} /> : <Loader />}

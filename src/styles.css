@@ -77,6 +77,15 @@ a {
   gap: 10px;
 }
 
+.sort-button {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid rgb(144, 144, 144, 0.8);
+  background: gray;
+  color: inherit;
+  cursor: pointer;
+}
+
 .main {
   width: 100%;
   display: flex;
@@ -106,7 +115,8 @@ a {
   gap: 10px;
 }
 
-.movie-card:hover {
+.movie-card:hover,
+.sort-button:hover {
   background: rgb(135, 135, 135);
   border: 1px solid wheat;
 }
