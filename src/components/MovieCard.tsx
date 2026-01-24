@@ -7,13 +7,18 @@ interface MovieCardType {
 function MovieCard({ movie }: MovieCardType) {
   return (
     <div className="movie-card">
-      <div className="movie-card-info">
-        <img src={movie.img} className="movie-card-img" />
-        <h2>{movie.title}</h2>
-        <p className="card-genres">{movie.genres}</p>
-      </div>
-      <div className="movie-card-rating">
-        <h3>⭐{movie.rating}</h3>
+      <img src={movie.img} className="movie-card-img" />
+      <div className="movie-card-info-container">
+        <div className="movie-card-info">
+          <h3>{movie.title}</h3>
+          <p className="card-genres">{movie.genres}</p>
+        </div>
+        <div className="movie-card-rating">
+          <h3>
+            {movie.rating >= 7.5 ? "🔥" : movie.rating < 6 ? "🍌" : "⭐"}
+            {movie.rating}
+          </h3>
+        </div>
       </div>
     </div>
   );

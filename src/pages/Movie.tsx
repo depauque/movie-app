@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import LikeButton from "../components/LikeButton";
-import "../styles.css";
 import type { MovieInfo } from "../types";
+import "../styles.css";
 
 function Movie({ data }: { data: MovieInfo[] }) {
   const { id } = useParams<{ id: string }>();

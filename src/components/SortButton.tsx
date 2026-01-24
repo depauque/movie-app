@@ -5,12 +5,12 @@ interface SortProps {
 
 function SortButton({ sortType, sortMovies }: SortProps) {
   return (
-    <button onClick={sortMovies} className="button">
-      Сортировать по рейтингу
-      {sortType === "" && <span> 🔄️</span>}
-      {sortType === "ASC" && <span> ⬇️</span>}
-      {sortType === "DSC" && <span> ⬆️</span>}
-    </button>
+    <div onClick={sortMovies} className="sort-div">
+      {sortType === "" && <div className="sort-icon"> 🔄️</div>}
+      {sortType === "ASC" && <div className="sort-icon"> ⬇️</div>}
+      {sortType === "DSC" && <div className="sort-icon"> ⬆️</div>}
+      <div>Сортировать по рейтингу</div>
+    </div>
   );
 }
 

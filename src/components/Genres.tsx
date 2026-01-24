@@ -17,7 +17,7 @@ function Genres({ genres, selectedGenres, setSelectedGenres }: GenresProps) {
   return (
     <div className="genres">
       {genres.map((g) => (
-        <label className="checkbox-input">
+        <label className="checkbox-container">
           <input
             type="checkbox"
             onChange={(e) => handleCheck(g, e.target.checked)}
