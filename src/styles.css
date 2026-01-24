@@ -46,6 +46,14 @@ a {
   margin-bottom: 5px;
 }
 
+.userpic {
+  font-size: 40px;
+  text-align: center;
+  border: 1px solid rgb(144, 144, 144, 0.8);
+  padding: 10px;
+  cursor: pointer;
+}
+
 .search input {
   width: 100%;
 }
@@ -89,14 +97,13 @@ a {
 .main {
   width: 100%;
   display: flex;
-  justify-content: center;
   flex-direction: column;
 }
 
 .movies {
   display: grid;
   grid-template-columns: repeat(4, minmax(200px, 1fr));
-  grid-auto-rows: max-content;
+  grid-auto-rows: 1fr;
   gap: 20px;
   padding: 20px;
   justify-content: center;
@@ -116,6 +123,7 @@ a {
   gap: 10px;
 }
 
+.userpic:hover,
 .button.active,
 .movie-card:hover,
 .button:hover {
@@ -214,4 +222,48 @@ a {
   justify-content: center;
   gap: 10px;
   margin-bottom: 20px;
+}
+
+.profile {
+  width: 100%;
+  padding: 30px;
+  display: flex;
+  gap: 30px;
+}
+
+.user-info {
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.user-img {
+  font-size: 72px;
+}
+
+.favs {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  border-left: 2px solid white;
+  padding-left: 30px;
+}
+
+.fav-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.fav-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.fav-list li:hover {
+  color: wheat;
 }

@@ -1,9 +1,9 @@
 import { useParams } from "react-router-dom";
-import data from "../data/movies.json";
 import LikeButton from "../components/LikeButton";
 import "../styles.css";
+import type { MovieInfo } from "../types";
 
-function Movie() {
+function Movie({ data }: { data: MovieInfo[] }) {
   const { id } = useParams<{ id: string }>();
   const movie = data.find((m) => m.id === parseInt(id!));
 

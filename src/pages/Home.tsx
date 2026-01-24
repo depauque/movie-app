@@ -6,29 +6,17 @@ import Genres from "../components/Genres";
 import SortButton from "../components/SortButton";
 import Loader from "../UI/Loader";
 import Pagination from "../components/Pagination";
+import Login from "../components/Login";
 import type { MovieInfo } from "../types";
 
 const ITEMS_PER_PAGE = 8;
 
-function Home() {
-  const [data, setData] = useState<MovieInfo[]>([]);
+function Home({ data }: { data: MovieInfo[] }) {
   const [search, setSearch] = useState("");
   const [rating, setRating] = useState({ min: 0, max: 10 });
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
   const [sortType, setSortType] = useState<"" | "ASC" | "DSC">("");
   const [currentPage, setCurrentPage] = useState(1);
-
-  useEffect(() => {
-    setTimeout(() => {
-      fetch("https://6972842532c6bacb12c72734.mockapi.io/api/movies").then(
-        (res) =>
-          res
-            .json()
-            .then((data) => setData(data))
-            .catch((err) => console.log("Не грузится!:", err)),
-      );
-    }, 500);
-  }, []);
 
   const sortMovies = () => {
     setSortType((prev) => {
@@ -38,45 +26,53 @@ function Home() {
     });
   };
 
-  let movies =
-    search.length === 0
-      ? data
-      : data.filter((m) =>
-          m.title.toLowerCase().includes(search.toLowerCase()),
-        );
+  const filteredMovies = useMemo(() => {
+    let result = data;
 
-  movies = movies.filter(
-    (m) => m.rating >= rating.min && m.rating <= rating.max,
-  );
+    if (search.length > 0) {
+      result = result.filter((m) =>
+        m.title.toLowerCase().includes(search.toLowerCase()),
+      );
+    }
 
-  movies =
-    selectedGenres.length === 0
-      ? movies
-      : [...movies].filter((m) => {
-          return selectedGenres.some((g) => m.genres.includes(g));
-        });
+    result = result.filter(
+      (m) => m.rating >= rating.min && m.rating <= rating.max,
+    );
 
-  movies =
-    sortType === ""
-      ? movies
-      : sortType === "ASC"
-        ? [...movies].sort((a, b) => a.rating - b.rating)
-        : [...movies].sort((a, b) => b.rating - a.rating);
+    if (selectedGenres.length > 0) {
+      result = result.filter((m) => {
+        return selectedGenres.some((g) => m.genres.includes(g));
+      });
+    }
+
+    if (sortType === "ASC") {
+      result = [...result].sort((a, b) => a.rating - b.rating);
+    } else if (sortType === "DSC") {
+      result = [...result].sort((a, b) => b.rating - a.rating);
+    }
+
+    return result;
+  }, [data, search, rating, selectedGenres, sortType]);
 
   const moviesToRender = useMemo(() => {
     const start = (currentPage - 1) * ITEMS_PER_PAGE;
     const end = currentPage * ITEMS_PER_PAGE;
-    return [...movies].slice(start, end);
-  }, [currentPage, movies]);
+    return filteredMovies.slice(start, end);
+  }, [currentPage, filteredMovies]);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setCurrentPage(1);
+  }, [filteredMovies]);
 
   const pagesArray = useMemo(() => {
     const pages = [];
-    const count = Math.ceil(movies.length / ITEMS_PER_PAGE);
+    const count = Math.ceil(filteredMovies.length / ITEMS_PER_PAGE);
     for (let i = 1; i <= count; i++) {
       pages.push(i);
     }
     return pages;
-  }, [movies]);
+  }, [filteredMovies]);
 
   const genres = useMemo(() => {
     const allGenres = data.flatMap((m) =>
@@ -88,6 +84,7 @@ function Home() {
   return (
     <>
       <div className="sidebar">
+        <Login />
         <Search setSearch={setSearch} />
         <Rating rating={rating} setRating={setRating} />
         <Genres
@@ -97,6 +94,7 @@ function Home() {
         />
         <SortButton sortType={sortType} sortMovies={sortMovies} />
       </div>
+
       <div className="main">
         {moviesToRender.length > 0 ? (
           <MovieList moviesToRender={moviesToRender} />
