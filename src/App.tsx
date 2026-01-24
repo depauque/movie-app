@@ -1,32 +1,15 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { FavoritesContext } from "./context/FavoritesContext";
-import { useEffect, useState } from "react";
+import useLocalStorage from "./hooks/useLocalStorage";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Movie from "./pages/Movie";
 import Profile from "./pages/Profile";
-import type { MovieInfo } from "./types";
 import "./styles.css";
 
 function App() {
-  const [data, setData] = useState<MovieInfo[]>([]);
-  const [likedMovies, setLikedMovies] = useState<number[]>(() => {
-    const saved = localStorage.getItem("favs");
-    return saved ? JSON.parse(saved) : [];
-  });
-
-  useEffect(() => {
-    setTimeout(() => {
-      fetch("https://6972842532c6bacb12c72734.mockapi.io/api/movies").then(
-        (res) => res.json().then((data) => setData(data)),
-      );
-    }, 800);
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem("favs", JSON.stringify(likedMovies));
-  }, [likedMovies]);
+  const [likedMovies, setLikedMovies] = useLocalStorage<number[]>("favs", []);
 
   const toggleLike = (id: number) => {
     setLikedMovies((prev) =>
@@ -41,7 +24,7 @@ function App() {
           <Header />
           <div className="container">
             <Routes>
-              <Route path="/" element={<Home data={data} />} />
+              <Route path="/" element={<Home />} />
               <Route path="/movie/:id" element={<Movie />} />
               <Route path="/profile" element={<Profile />} />
             </Routes>

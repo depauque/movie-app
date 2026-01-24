@@ -4,13 +4,13 @@ import MovieCard from "./MovieCard";
 import LikeButton from "./LikeButton";
 
 interface MovieProps {
-  movies: MovieInfo[];
+  moviesToRender: MovieInfo[];
 }
 
-function MovieList({ movies }: MovieProps) {
+function MovieList({ moviesToRender }: MovieProps) {
   return (
     <div className="movies">
-      {movies.map((movie) => (
+      {moviesToRender.map((movie) => (
         <div className="parent-container">
           <Link key={movie.id} to={`/movie/${movie.id}`}>
             <MovieCard movie={movie} />

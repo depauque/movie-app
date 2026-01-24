@@ -5,7 +5,7 @@ interface SortProps {
 
 function SortButton({ sortType, sortMovies }: SortProps) {
   return (
-    <button onClick={sortMovies} className="sort-button">
+    <button onClick={sortMovies} className="button">
       Сортировать по рейтингу
       {sortType === "" && <span> 🔄️</span>}
       {sortType === "ASC" && <span> ⬇️</span>}
