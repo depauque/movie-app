@@ -9,9 +9,6 @@ interface MovieProps {
 }
 
 function MovieList({ moviesToRender }: MovieProps) {
-  if (!moviesToRender)
-    return <h2 className="messages">Результатов не найдено</h2>;
-
   return (
     <div className="movies">
       {moviesToRender.map((movie) => (

@@ -4,18 +4,20 @@ import Search from "../components/Search";
 import Rating from "../components/Rating";
 import Genres from "../components/Genres";
 import SortButton from "../components/SortButton";
-import Loader from "../UI/Loader";
 import Pagination from "../components/Pagination";
 import Login from "../components/Login";
+import Switch from "../components/Switch";
+import Loader from "../UI/Loader";
 import type { MovieInfo } from "../types";
 
 const ITEMS_PER_PAGE = 8;
 
-function Home({ data }: { data: MovieInfo[] }) {
+function Home({ data, isLoading }: { data: MovieInfo[]; isLoading: boolean }) {
   const [search, setSearch] = useState("");
   const [rating, setRating] = useState({ min: 0, max: 10 });
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
   const [sortType, setSortType] = useState<"" | "ASC" | "DSC">("");
+  const [isTop, setIsTop] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
 
   const sortMovies = () => {
@@ -51,8 +53,12 @@ function Home({ data }: { data: MovieInfo[] }) {
       result = [...result].sort((a, b) => b.rating - a.rating);
     }
 
+    if (isTop) {
+      result = result.filter((m) => m.rating >= 7.5);
+    }
+
     return result;
-  }, [data, search, rating, selectedGenres, sortType]);
+  }, [data, search, rating, selectedGenres, sortType, isTop]);
 
   const moviesToRender = useMemo(() => {
     const start = (currentPage - 1) * ITEMS_PER_PAGE;
@@ -74,7 +80,7 @@ function Home({ data }: { data: MovieInfo[] }) {
     return pages;
   }, [filteredMovies]);
 
-  const genres = useMemo(() => {
+  const allGenres = useMemo(() => {
     const allGenres = data.flatMap((m) =>
       m.genres.split(",").map((g) => g.trim()),
     );
@@ -88,19 +94,23 @@ function Home({ data }: { data: MovieInfo[] }) {
         <Search setSearch={setSearch} />
         <Rating rating={rating} setRating={setRating} />
         <Genres
-          genres={genres}
+          allGenres={allGenres}
           selectedGenres={selectedGenres}
           setSelectedGenres={setSelectedGenres}
         />
         <SortButton sortType={sortType} sortMovies={sortMovies} />
+        <Switch isTop={isTop} setIsTop={setIsTop} />
       </div>
 
       <div className="main">
-        {moviesToRender.length > 0 ? (
+        {!isLoading && moviesToRender.length > 0 && (
           <MovieList moviesToRender={moviesToRender} />
-        ) : (
-          <Loader />
         )}
+        {!isLoading && moviesToRender.length === 0 && (
+          <h2 className="messages">Результатов не найдено</h2>
+        )}
+        {isLoading && <Loader />}
+
         <Pagination
           setCurrentPage={setCurrentPage}
           pagesArray={pagesArray}

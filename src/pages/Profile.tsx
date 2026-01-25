@@ -8,13 +8,11 @@ function Profile({ data }: { data: MovieInfo[] }) {
   const { likedMovies } = useContext(FavoritesContext);
   const favMovies = data.filter((m) => likedMovies.includes(m.id));
 
-  console.log(likedMovies);
-
   return (
     <div className="profile">
       <div className="user-info">
         <p className="user-img">👤</p>
-        <h2>Пользователь</h2>
+        <h1>User</h1>
       </div>
       <div className="favs">
         <h2>Избранное</h2>

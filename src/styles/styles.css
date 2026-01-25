@@ -48,7 +48,7 @@ a {
   margin-bottom: 5px;
 }
 
-.userpic {
+.user-pic {
   text-align: center;
   border: 1px solid rgb(144, 144, 144, 0.8);
   padding: 8px;
@@ -56,7 +56,7 @@ a {
 }
 
 .user-icon {
-  font-size: 40px;
+  font-size: 32px;
 }
 
 .search input {
@@ -152,7 +152,7 @@ input[type="checkbox"] {
   justify-content: space-between;
 }
 
-.userpic:hover,
+.user-pic:hover,
 .button.active,
 .movie-card:hover,
 .button:hover,
@@ -267,7 +267,7 @@ input[type="checkbox"] {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 
 .user-img {

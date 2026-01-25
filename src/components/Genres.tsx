@@ -1,10 +1,10 @@
 interface GenresProps {
-  genres: string[];
+  allGenres: string[];
   selectedGenres: string[];
   setSelectedGenres: (value: string[]) => void;
 }
 
-function Genres({ genres, selectedGenres, setSelectedGenres }: GenresProps) {
+function Genres({ allGenres, selectedGenres, setSelectedGenres }: GenresProps) {
   const handleCheck = (genre: string, checked: boolean) => {
     if (checked) {
       setSelectedGenres([...selectedGenres, genre]);
@@ -16,7 +16,7 @@ function Genres({ genres, selectedGenres, setSelectedGenres }: GenresProps) {
 
   return (
     <div className="genres">
-      {genres.map((g) => (
+      {allGenres.map((g) => (
         <label className="checkbox-container">
           <input
             type="checkbox"

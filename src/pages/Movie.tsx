@@ -1,13 +1,12 @@
 import { useParams } from "react-router-dom";
 import LikeButton from "../components/LikeButton";
 import type { MovieInfo } from "../types";
-import "../styles.css";
 
 function Movie({ data }: { data: MovieInfo[] }) {
   const { id } = useParams<{ id: string }>();
   const movie = data.find((m) => m.id === parseInt(id!));
 
-  if (!movie) return <h2 className="messages">Фильм не найден</h2>;
+  if (!movie) return <h2 className="messages">Фильм не найден</h2>;
 
   return (
     <div className="movie-info">
