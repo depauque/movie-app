@@ -4,7 +4,7 @@ interface SearchProps {
   setSearch: (value: string) => void;
 }
 
-const SEARCH_DELAY = 750;
+const SEARCH_DELAY = 600;
 
 function Search({ setSearch }: SearchProps) {
   const handleSearch = useDebounce((value: string) => {

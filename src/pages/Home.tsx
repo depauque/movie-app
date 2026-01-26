@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
 import MovieList from "../components/MovieList";
 import Search from "../components/Search";
 import Rating from "../components/Rating";
@@ -20,13 +20,13 @@ function Home({ data, isLoading }: { data: MovieInfo[]; isLoading: boolean }) {
   const [isTop, setIsTop] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const sortMovies = () => {
+  const sortMovies = useCallback(() => {
     setSortType((prev) => {
       if (prev === "") return "ASC";
       if (prev === "ASC") return "DSC";
       return "";
     });
-  };
+  }, []);
 
   const filteredMovies = useMemo(() => {
     let result = data;

@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { FavoritesContext } from "../context/FavoritesContext";
-import LikeButton from "../components/LikeButton";
 import type { MovieInfo } from "../types";
 
 function Profile({ data }: { data: MovieInfo[] }) {
@@ -19,7 +18,6 @@ function Profile({ data }: { data: MovieInfo[] }) {
         <ul className="fav-list">
           {favMovies.map((m) => (
             <div className="fav-item">
-              <LikeButton className="like-button--page" movieId={m.id} />
               <Link to={`/movie/${m.id}`}>
                 <li>{m.title}</li>
               </Link>
