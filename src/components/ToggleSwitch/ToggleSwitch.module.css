@@ -1,6 +1,6 @@
-.switch-container {
+.switchContainer {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: flex-end;
 }
 

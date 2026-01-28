@@ -1,0 +1,14 @@
+.userPic {
+  text-align: center;
+  border: 1px solid rgb(144, 144, 144, 0.8);
+  padding: 8px;
+  cursor: pointer;
+}
+
+.userPic:hover {
+  background: rgb(135, 135, 135);
+}
+
+.userIcon {
+  font-size: 32px;
+}

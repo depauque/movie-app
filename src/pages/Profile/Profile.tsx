@@ -1,23 +1,24 @@
 import { Link } from "react-router-dom";
 import { useContext } from "react";
-import { FavoritesContext } from "../context/FavoritesContext";
-import type { MovieInfo } from "../types";
+import { FavoritesContext } from "../../context/FavoritesContext";
+import type { MovieInfo } from "../../types";
+import styles from "./Profile.module.css";
 
 function Profile({ data }: { data: MovieInfo[] }) {
   const { likedMovies } = useContext(FavoritesContext);
   const favMovies = data.filter((m) => likedMovies.includes(m.id));
 
   return (
-    <div className="profile">
-      <div className="user-info">
-        <p className="user-img">👤</p>
+    <div className={styles.profile}>
+      <div className={styles.userInfo}>
+        <p className={styles.userImg}>👤</p>
         <h1>User</h1>
       </div>
-      <div className="favs">
+      <div className={styles.favs}>
         <h2>Избранное</h2>
-        <ul className="fav-list">
+        <ul className={styles.favsList}>
           {favMovies.map((m) => (
-            <div className="fav-item">
+            <div className={styles.favItem}>
               <Link to={`/movie/${m.id}`}>
                 <li>{m.title}</li>
               </Link>

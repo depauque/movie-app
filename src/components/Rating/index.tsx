@@ -1,3 +1,5 @@
+import styles from "./Rating.module.css";
+
 interface RatingProps {
   rating: { min: number; max: number };
   setRating: (rating: { min: number; max: number }) => void;
@@ -13,22 +15,22 @@ function Rating({ rating, setRating }: RatingProps) {
   };
 
   return (
-    <div className="rating">
-      <h3 className="h3-sidebar">Рейтинг</h3>
-      <div className="rating-inputs">
+    <div>
+      <h4 className={styles.h4Sidebar}>Рейтинг</h4>
+      <div className={styles.ratingInputs}>
         <input
           type="number"
           name="min"
           value={rating.min}
           onChange={handleNums}
-          className="text-inputs"
+          className={styles.textInputs}
         />
         <input
           type="number"
           name="max"
           value={rating.max}
           onChange={handleNums}
-          className="text-inputs"
+          className={styles.textInputs}
         />
       </div>
     </div>

@@ -1,3 +1,5 @@
+import styles from "./Genres.module.css";
+
 interface GenresProps {
   allGenres: string[];
   selectedGenres: string[];
@@ -15,14 +17,14 @@ function Genres({ allGenres, selectedGenres, setSelectedGenres }: GenresProps) {
   };
 
   return (
-    <div className="genres">
+    <div className={styles.genres}>
       {allGenres.map((g) => (
-        <label className="checkbox-container">
+        <label className={styles.checkboxContainer}>
           <input
             type="checkbox"
             onChange={(e) => handleCheck(g, e.target.checked)}
           />
-          <p className={selectedGenres.includes(g) ? "active-genre" : ""}>
+          <p className={selectedGenres.includes(g) ? styles.activeGenre : ""}>
             {g}
           </p>
         </label>

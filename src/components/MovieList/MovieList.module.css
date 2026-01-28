@@ -1,0 +1,19 @@
+.movies {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(200px, 1fr));
+  grid-auto-rows: 1fr;
+  gap: 20px;
+  padding: 20px;
+  justify-content: center;
+}
+
+.parentContainer {
+  position: relative;
+}
+
+.likeButtonCard {
+  position: absolute;
+  right: 10px;
+  bottom: 6px;
+  z-index: 10;
+}

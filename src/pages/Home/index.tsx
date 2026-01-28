@@ -1,16 +1,16 @@
 import { useState, useMemo, useEffect, useCallback } from "react";
-import MovieList from "../components/MovieList";
-import Search from "../components/Search";
-import Rating from "../components/Rating";
-import Genres from "../components/Genres";
-import SortButton from "../components/SortButton";
-import Pagination from "../components/Pagination";
-import Login from "../components/Login";
-import Switch from "../components/Switch";
-import Loader from "../UI/Loader";
-import type { MovieInfo } from "../types";
-
-const ITEMS_PER_PAGE = 8;
+import { ITEMS_PER_PAGE } from "../../constants";
+import MovieList from "../../components/MovieList";
+import Search from "../../components/Search";
+import Rating from "../../components/Rating";
+import Genres from "../../components/Genres";
+import SortButton from "../../components/SortButton";
+import Pagination from "../../components/Pagination";
+import Login from "../../components/Login";
+import Switch from "../../components/ToggleSwitch";
+import Loader from "../../UI/Loader";
+import type { MovieInfo } from "../../types";
+import styles from "./Home.module.css";
 
 function Home({ data, isLoading }: { data: MovieInfo[]; isLoading: boolean }) {
   const [search, setSearch] = useState("");
@@ -89,7 +89,7 @@ function Home({ data, isLoading }: { data: MovieInfo[]; isLoading: boolean }) {
 
   return (
     <>
-      <div className="sidebar">
+      <div className={styles.sidebar}>
         <Login />
         <Search setSearch={setSearch} />
         <Rating rating={rating} setRating={setRating} />
@@ -98,11 +98,11 @@ function Home({ data, isLoading }: { data: MovieInfo[]; isLoading: boolean }) {
           selectedGenres={selectedGenres}
           setSelectedGenres={setSelectedGenres}
         />
-        <SortButton sortType={sortType} sortMovies={sortMovies} />
         <Switch isTop={isTop} setIsTop={setIsTop} />
       </div>
 
-      <div className="main">
+      <div className={styles.main}>
+        <SortButton sortType={sortType} sortMovies={sortMovies} />
         {!isLoading && moviesToRender.length > 0 && (
           <MovieList moviesToRender={moviesToRender} />
         )}

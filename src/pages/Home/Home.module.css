@@ -1,0 +1,15 @@
+.sidebar {
+  width: 220px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  border-right: 1px solid lightgray;
+}
+
+.main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}

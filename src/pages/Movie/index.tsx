@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
-import LikeButton from "../components/LikeButton";
-import type { MovieInfo } from "../types";
+import LikeButton from "../../components/LikeButton";
+import type { MovieInfo } from "../../types";
+import styles from "./Movie.module.css";
 
 function Movie({ data }: { data: MovieInfo[] }) {
   const { id } = useParams<{ id: string }>();
@@ -9,20 +10,24 @@ function Movie({ data }: { data: MovieInfo[] }) {
   if (!movie) return <h2 className="messages">Фильм не найден</h2>;
 
   return (
-    <div className="movie-info">
+    <div className={styles.movieInfo}>
       <div>
-        <img src={movie.img} className="movie-image" />
+        <img src={movie.img} className={styles.movieImage} />
       </div>
-      <div className="movie-details">
+      <div className={styles.movieDetails}>
         <h1>{movie.title}</h1>
-        <p className="movie-genres">{movie.genres}</p>
+        <p className={styles.movieGenres}>{movie.genres}</p>
         <p>{movie.description}</p>
-        <div className="movie-rating">
+        <div className={styles.movieRating}>
           <a href={`https://imdb.com/title/${movie.imdbId}/`} target="_blank">
-            <img src="/imdb.svg" alt="IMDB rating" className="imdb-logo" />
+            <img
+              src="/imdb.svg"
+              alt="IMDB rating"
+              className={styles.imdbLogo}
+            />
           </a>
           <h2>{movie.rating}</h2>
-          <LikeButton className="like-button--page" movieId={movie.id} />
+          <LikeButton movieId={movie.id} />
         </div>
       </div>
     </div>

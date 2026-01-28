@@ -1,0 +1,21 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  margin-top: auto;
+}
+
+.button {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid rgb(144, 144, 144, 0.8);
+  background: gray;
+  color: inherit;
+  cursor: pointer;
+}
+
+.button.active,
+.button:hover {
+  background: rgb(135, 135, 135);
+}

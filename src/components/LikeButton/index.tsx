@@ -1,26 +1,26 @@
 import { useContext } from "react";
-import { FavoritesContext } from "../context/FavoritesContext";
+import { FavoritesContext } from "../../context/FavoritesContext";
 import { motion } from "framer-motion";
+import styles from "./LikeButton.module.css";
 
 interface LikeBtnProps {
   movieId: number;
-  className?: string;
+  extraClassName?: string;
 }
 
-function LikeButton({ movieId, className = "" }: LikeBtnProps) {
+function LikeButton({ movieId, extraClassName }: LikeBtnProps) {
   const { likedMovies, toggleLike } = useContext(FavoritesContext);
   const isLiked = likedMovies.includes(movieId);
 
   return (
-    <div className={className}>
+    <div className={`${styles.likeButton} ${extraClassName}`}>
       <motion.img
         src={isLiked ? "/upvote_active.svg" : "/upvote_inactive.svg"}
-        className="upvote-img"
         onClick={() => toggleLike(movieId)}
-        whileHover={{ scale: 1.1 }}
+        whileHover={{ scale: 1.2 }}
         whileTap={{ scale: 0.9 }}
         animate={{ scale: 1 }}
-        transition={{ duration: 0.2 }}
+        transition={{ duration: 0.1 }}
       />
     </div>
   );

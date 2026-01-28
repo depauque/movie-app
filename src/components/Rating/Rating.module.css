@@ -1,0 +1,15 @@
+.h4Sidebar {
+  border-bottom: 1px solid white;
+  margin-bottom: 8px;
+}
+
+.ratingInputs {
+  display: flex;
+  gap: 8px;
+}
+
+.textInputs {
+  padding: 4px 8px;
+  background: lightgray;
+  width: 100%;
+}

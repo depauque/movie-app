@@ -1,3 +1,5 @@
+import styles from "./Pagination.module.css";
+
 interface PaginationProps {
   setCurrentPage: (value: number) => void;
   pagesArray: number[];
@@ -10,12 +12,12 @@ function Pagination({
   currentPage,
 }: PaginationProps) {
   return (
-    <div className="pagination">
+    <div className={styles.pagination}>
       {pagesArray.map((page) => (
         <button
           key={page}
           onClick={() => setCurrentPage(page)}
-          className={page === currentPage ? "button active" : "button"}
+          className={`${styles.button} ${page === currentPage ? styles.active : ""}`}
         >
           {page}
         </button>

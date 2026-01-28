@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import MovieCard from "./MovieCard";
-import LikeButton from "./LikeButton";
-import type { MovieInfo } from "../types";
+import MovieCard from "../MovieCard";
+import LikeButton from "../LikeButton";
+import type { MovieInfo } from "../../types";
+import styles from "./MovieList.module.css";
 
 interface MovieProps {
   moviesToRender: MovieInfo[];
@@ -10,12 +11,12 @@ interface MovieProps {
 
 function MovieList({ moviesToRender }: MovieProps) {
   return (
-    <div className="movies">
+    <div className={styles.movies}>
       {moviesToRender.map((movie) => (
         <motion.div
           key={movie.id}
           layout
-          className="parent-container"
+          className={styles.parentContainer}
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.2 }}
@@ -24,7 +25,10 @@ function MovieList({ moviesToRender }: MovieProps) {
           <Link to={`/movie/${movie.id}`}>
             <MovieCard movie={movie} />
           </Link>
-          <LikeButton className="like-button--card" movieId={movie.id} />
+          <LikeButton
+            extraClassName={styles.likeButtonCard}
+            movieId={movie.id}
+          />
         </motion.div>
       ))}
     </div>

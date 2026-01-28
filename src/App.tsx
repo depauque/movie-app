@@ -1,16 +1,15 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { FavoritesContext } from "./context/FavoritesContext";
+import { API_URL } from "./constants";
 import useFetch from "./hooks/useFetch";
 import useLocalStorage from "./hooks/useLocalStorage";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Movie from "./pages/Movie";
-import Profile from "./pages/Profile";
+import Profile from "./pages/Profile/Profile";
 import type { MovieInfo } from "./types";
 import "./styles/styles.css";
-
-const API_URL = "https://6972842532c6bacb12c72734.mockapi.io/api/movies";
 
 function App() {
   const [data, isLoading, error] = useFetch<MovieInfo[]>(API_URL);
@@ -22,7 +21,7 @@ function App() {
     setLikedMovies((prev) =>
       prev.includes(id) ? prev.filter((el) => el !== id) : [...prev, id],
     );
-  }; // TODO: фывфыв
+  };
 
   return (
     <FavoritesContext.Provider value={{ likedMovies, toggleLike }}>

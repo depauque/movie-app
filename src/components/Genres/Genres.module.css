@@ -1,0 +1,15 @@
+.genres {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.checkboxContainer {
+  display: flex;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.activeGenre {
+  color: wheat;
+}

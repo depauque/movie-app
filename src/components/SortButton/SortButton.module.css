@@ -1,0 +1,20 @@
+.sortDiv {
+  height: 40px;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: flex-end;
+  position: absolute;
+  top: -41px;
+  right: 0;
+  padding: 0 5px;
+  cursor: pointer;
+}
+
+.sortDiv:hover {
+  background: gray;
+}
+
+.sortIcon {
+  font-size: 24px;
+}

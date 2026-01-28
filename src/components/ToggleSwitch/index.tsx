@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import "../styles/switch.css";
+import styles from "./ToggleSwitch.module.css";
 
 interface SwitchProps {
   isTop: boolean;
@@ -8,10 +8,10 @@ interface SwitchProps {
 
 function Switch({ isTop, setIsTop }: SwitchProps) {
   return (
-    <div className="switch-container">
-      <div>🔥Топ IMDB</div>
+    <div className={styles.switchContainer}>
+      <div>🔥 Топ IMDB</div>
       <motion.div
-        className="switch"
+        className={styles.switch}
         onClick={() => setIsTop(!isTop)}
         animate={{
           backgroundColor: isTop ? "wheat" : "lightgray",

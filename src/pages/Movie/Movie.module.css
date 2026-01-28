@@ -1,0 +1,30 @@
+.movieInfo {
+  padding: 30px;
+  display: flex;
+  gap: 20px;
+}
+
+.movieImage {
+  border: 2px solid wheat;
+}
+
+.movieDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.movieGenres {
+  color: lightgray;
+  font-style: italic;
+}
+
+.movieRating {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.imdbLogo {
+  width: 60px;
+}
