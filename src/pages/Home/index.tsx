@@ -1,5 +1,7 @@
 import { useState, useMemo, useEffect, useCallback } from "react";
 import { ITEMS_PER_PAGE } from "../../constants";
+import { getPagesArray } from "../../utils/pagination";
+import type { MovieInfo } from "../../types";
 import MovieList from "../../components/MovieList";
 import Search from "../../components/Search";
 import Rating from "../../components/Rating";
@@ -9,7 +11,6 @@ import Pagination from "../../components/Pagination";
 import Login from "../../components/Login";
 import Switch from "../../components/ToggleSwitch";
 import Loader from "../../UI/Loader";
-import type { MovieInfo } from "../../types";
 import styles from "./Home.module.css";
 
 function Home({ data, isLoading }: { data: MovieInfo[]; isLoading: boolean }) {
@@ -72,12 +73,7 @@ function Home({ data, isLoading }: { data: MovieInfo[]; isLoading: boolean }) {
   }, [filteredMovies]);
 
   const pagesArray = useMemo(() => {
-    const pages = [];
-    const count = Math.ceil(filteredMovies.length / ITEMS_PER_PAGE);
-    for (let i = 1; i <= count; i++) {
-      pages.push(i);
-    }
-    return pages;
+    return getPagesArray(filteredMovies.length, ITEMS_PER_PAGE);
   }, [filteredMovies]);
 
   const allGenres = useMemo(() => {
