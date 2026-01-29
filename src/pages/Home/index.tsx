@@ -32,18 +32,18 @@ function Home({ data, isLoading }: { data: MovieInfo[]; isLoading: boolean }) {
     let result = data;
 
     if (search.length > 0) {
-      result = result.filter((m) =>
-        m.title.toLowerCase().includes(search.toLowerCase()),
+      result = result.filter((movie) =>
+        movie.title.toLowerCase().includes(search.toLowerCase()),
       );
     }
 
     result = result.filter(
-      (m) => m.rating >= rating.min && m.rating <= rating.max,
+      (movie) => movie.rating >= rating.min && movie.rating <= rating.max,
     );
 
     if (selectedGenres.length > 0) {
-      result = result.filter((m) => {
-        return selectedGenres.some((g) => m.genres.includes(g));
+      result = result.filter((movie) => {
+        return selectedGenres.some((genre) => movie.genres.includes(genre));
       });
     }
 
@@ -54,7 +54,7 @@ function Home({ data, isLoading }: { data: MovieInfo[]; isLoading: boolean }) {
     }
 
     if (isTop) {
-      result = result.filter((m) => m.rating >= 7.5);
+      result = result.filter((movie) => movie.rating >= 7.5);
     }
 
     return result;
@@ -81,8 +81,8 @@ function Home({ data, isLoading }: { data: MovieInfo[]; isLoading: boolean }) {
   }, [filteredMovies]);
 
   const allGenres = useMemo(() => {
-    const allGenres = data.flatMap((m) =>
-      m.genres.split(",").map((g) => g.trim()),
+    const allGenres = data.flatMap((movie) =>
+      movie.genres.split(",").map((genre) => genre.trim()),
     );
     return [...new Set(allGenres)].sort();
   }, [data]);

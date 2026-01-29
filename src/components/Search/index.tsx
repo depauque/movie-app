@@ -1,11 +1,10 @@
 import useDebounce from "../../hooks/useDebounce";
+import { SEARCH_DELAY } from "../../constants";
 import styles from "./Search.module.css";
 
 interface SearchProps {
   setSearch: (value: string) => void;
 }
-
-const SEARCH_DELAY = 600;
 
 function Search({ setSearch }: SearchProps) {
   const handleSearch = useDebounce((value: string) => {

@@ -1,7 +1,7 @@
 .switchContainer {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: center;
 }
 
 .switch {
@@ -12,10 +12,20 @@
   align-items: center;
   display: flex;
   cursor: pointer;
+  background-color: lightgray;
 }
 
-.switch div {
+.switch.on {
+  background-color: wheat;
+}
+
+.thumb {
   width: 15px;
   height: 15px;
   border-radius: 50%;
+  background-color: white;
+}
+
+.thumb.on {
+  background-color: gray;
 }

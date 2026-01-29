@@ -11,18 +11,14 @@ function Switch({ isTop, setIsTop }: SwitchProps) {
     <div className={styles.switchContainer}>
       <div>🔥 Топ IMDB</div>
       <motion.div
-        className={styles.switch}
+        className={`${styles.switch} ${isTop ? styles.on : ""}`}
         onClick={() => setIsTop(!isTop)}
-        animate={{
-          backgroundColor: isTop ? "wheat" : "lightgray",
-        }}
         transition={{ duration: 0.2 }}
       >
         <motion.div
-          animate={{
-            x: isTop ? 20 : 0,
-            backgroundColor: isTop ? "gray" : "white",
-          }}
+          className={`${styles.thumb} ${isTop ? styles.on : ""}`}
+          animate={{ x: isTop ? 20 : 0 }}
+          transition={{ duration: 0.2 }}
         />
       </motion.div>
     </div>
